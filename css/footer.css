@@ -1,0 +1,23 @@
+#footer {
+    background: url(/img/footer-bg.jpg) center center / cover no-repeat !important;
+    position: relative;
+}
+
+#footer::before {
+    background-color: rgba(0, 0, 0, 0.35) !important;
+    position: absolute;
+    inset: 0;
+    content: "";
+    z-index: 0;
+}
+
+#footer .footer-wrap {
+    position: relative;
+    z-index: 1;
+}
+
+#footer .footer-wrap,
+#footer .footer-wrap a {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
