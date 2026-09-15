@@ -1,0 +1,17 @@
+/* 首页标题下方打字机样式 */
+.typewriter-wrap {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.typewriter-text {
+    display: inline-block;
+    font-size: 1.15rem;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .typewriter-text {
+    color: #eaeaea;
+}
