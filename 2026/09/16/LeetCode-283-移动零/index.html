@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LeetCode 283. 移动零 | Hexo</title><meta name="author" content="陈万里"><meta name="copyright" content="陈万里"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="LeetCode 283. 移动零题目给定数组 nums，将所有 0 移动到数组末尾，保持非零元素相对顺序，原地操作。示例：输入 [0,1,0,3,12] → 输出 [1,3,12,0,0] 注释代码123456789101112131415161718public class Solution &#123;    public void moveZeroes(int[] nums) &#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 283. 移动零">
+<meta property="og:url" content="http://codr-your.github.io/2026/09/16/LeetCode-283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="LeetCode 283. 移动零题目给定数组 nums，将所有 0 移动到数组末尾，保持非零元素相对顺序，原地操作。示例：输入 [0,1,0,3,12] → 输出 [1,3,12,0,0] 注释代码123456789101112131415161718public class Solution &#123;    public void moveZeroes(int[] nums) &#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://codr-your.github.io/img/breeze.png">
+<meta property="article:published_time" content="2026-09-16T02:06:10.000Z">
+<meta property="article:modified_time" content="2026-09-16T02:13:02.185Z">
+<meta property="article:author" content="陈万里">
+<meta property="article:tag" content="双指针">
+<meta property="article:tag" content="数组">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://codr-your.github.io/img/breeze.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LeetCode 283. 移动零",
+  "url": "http://codr-your.github.io/2026/09/16/LeetCode-283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/",
+  "image": "http://codr-your.github.io/img/breeze.png",
+  "datePublished": "2026-09-16T02:06:10.000Z",
+  "dateModified": "2026-09-16T02:13:02.185Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "陈万里",
+      "url": "https://codr-your.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://codr-your.github.io/2026/09/16/LeetCode-283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LeetCode 283. 移动零',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/footer.css"><link rel="stylesheet" href="/css/custom-typewriter.css"><meta name="generator" content="Hexo 8.1.2"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/banner.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">LeetCode 283. 移动零</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">LeetCode 283. 移动零</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-16T02:06:10.000Z" title="发表于 2026-09-16 10:06:10">2026-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-16T02:13:02.185Z" title="更新于 2026-09-16 10:13:02">2026-09-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">力扣刷题笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="LeetCode-283-移动零"><a href="#LeetCode-283-移动零" class="headerlink" title="LeetCode 283. 移动零"></a>LeetCode 283. 移动零</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定数组 nums，将所有 0 移动到数组末尾，保持非零元素相对顺序，原地操作。<br>示例：输入 <code>[0,1,0,3,12]</code> → 输出 <code>[1,3,12,0,0]</code></p>
+<h2 id="注释代码"><a href="#注释代码" class="headerlink" title="注释代码"></a>注释代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">moveZeroes</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="comment">// slow：下一个非零元素要放置的位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">slow</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// fast：快指针遍历数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">fast</span> <span class="operator">=</span> <span class="number">0</span>; fast &lt; nums.length; fast++) &#123;</span><br><span class="line">            <span class="comment">// 找到非零元素</span></span><br><span class="line">            <span class="keyword">if</span> (nums[fast] != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 交换快慢指针位置的值</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> nums[slow];</span><br><span class="line">                nums[slow] = nums[fast];</span><br><span class="line">                nums[fast] = temp;</span><br><span class="line">                <span class="comment">// 慢指针后移，准备接收下一个非零元素</span></span><br><span class="line">                slow++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解题总结"><a href="#解题总结" class="headerlink" title="解题总结"></a>解题总结</h2><p>1.算法思路：快慢双指针。快指针遍历数组寻找非 0 元素；每当找到非 0，就和慢指针位置元素交换，慢指针右移。一次遍历完成，无需二次填充 0。<br>2.复杂度：时间 O (n)，仅遍历数组一次；空间 O (1)，原地修改数组，不额外开辟数组。<br>3.央企 &#x2F; 国企笔试考点:<br>  数组为引用传递，函数 void 返回，直接修改原数组，不需要 return。<br>  原地算法要求，不能新建数组，是机考高频限制条件。<br>  双指针模板，同类题 LeetCode 27 移除元素思路一致，经常变形考察。<br>  必须保证非零元素原有相对顺序，不可直接排序。<br>4.易错点：区分 void 原地修改 和 需要返回有效长度的数组题目</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://codr-your.github.io">陈万里</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://codr-your.github.io/2026/09/16/LeetCode-283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/">http://codr-your.github.io/2026/09/16/LeetCode-283-移动零/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://codr-your.github.io" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E7%BB%84/">数组</a><a class="post-meta__tags" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a></div><div class="post-share"><div class="social-share" data-image="/img/breeze.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/09/13/LeetCode%2014.%20%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" title="LeetCode 14. 最长公共前缀"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">LeetCode 14. 最长公共前缀</div></div><div class="info-2"><div class="info-item-1">题目  编写一个函数来查找字符串数组中的最长公共前缀。  如果不存在公共前缀，返回空字符串 “”。  示例 1：  输入：strs &#x3D; [“flower”,”flow”,”flight”]  输出：”fl”  示例 2：  输入：strs &#x3D; [“dog”,”racecar”,”car”]  输出：””  解释：输入不存在公共前缀。  提示：  1 &lt;&#x3D; strs.length &lt;&#x3D; 200  0 &lt;&#x3D; strs[i].length &lt;&#x3D; 200  strs[i] 仅由小写英文字母组成 Java 代码 123456789101112131415161718192021class Solution &#123;    public String longestCommonPrefix(String[] strs) &#123;        if(strs == null || strs.length == 0)&#123;            return &quot;&quot;;      ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/breeze.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">软件工程24-1班陈万里</div><div class="author-info-description">Code | Life | Growth</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/codr-your"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/codr-your" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LeetCode-283-%E7%A7%BB%E5%8A%A8%E9%9B%B6"><span class="toc-number">1.</span> <span class="toc-text">LeetCode 283. 移动零</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.</span> <span class="toc-text">注释代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.</span> <span class="toc-text">解题总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/16/LeetCode-283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/" title="LeetCode 283. 移动零">LeetCode 283. 移动零</a><time datetime="2026-09-16T02:06:10.000Z" title="发表于 2026-09-16 10:06:10">2026-09-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/13/LeetCode%2014.%20%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" title="LeetCode 14. 最长公共前缀">LeetCode 14. 最长公共前缀</a><time datetime="2026-09-13T06:27:00.000Z" title="发表于 2026-09-13 14:27:00">2026-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/13/LeetCode%2053.%20%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/" title="LeetCode 53. 最大子数组和">LeetCode 53. 最大子数组和</a><time datetime="2026-09-12T19:26:00.000Z" title="发表于 2026-09-13 03:26:00">2026-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/12/LeetCode%2027.%20%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%E3%80%90%E7%AE%80%E5%8D%95%E3%80%91/" title="LeetCode 27. 移除元素【简单】">LeetCode 27. 移除元素【简单】</a><time datetime="2026-09-12T04:18:00.000Z" title="发表于 2026-09-12 12:18:00">2026-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/06/05/Java%E7%BB%A7%E6%89%BFThread%E7%B1%BB%E4%B8%8E%E5%AE%9E%E7%8E%B0Runnable%E6%8E%A5%E5%8F%A3%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%8C%BA%E5%88%AB%E6%80%BB%E7%BB%93/" title="Java继承Thread类与实现Runnable接口创建线程区别总结">Java继承Thread类与实现Runnable接口创建线程区别总结</a><time datetime="2026-06-05T06:13:00.000Z" title="发表于 2026-06-05 14:13:00">2026-06-05</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 陈万里</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></span></div><div class="footer_custom_text">Keep learing | Keep moving</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+  document.addEventListener('DOMContentLoaded',function(){
+    const siteInfo = document.querySelector('.site-info');
+    if(!siteInfo) return;
+    if(siteInfo.querySelector('.typed-subtitle')) return;
+    const subDom = document.createElement('div');
+    subDom.className = 'typed-subtitle';
+    subDom.style.marginTop = '8px';
+    subDom.style.fontSize = '1.1rem';
+    subDom.style.color = '#fff';
+    subDom.style.textShadow = '0 1px 4px rgba(0,0,0,0.4)';
+    siteInfo.appendChild(subDom);
+    new Typed('.typed-subtitle',{
+      strings: ["保持热爱｜持续输入","Stay curious | Keep growing"],
+      typeSpeed:120,
+      backSpeed:60,
+      startDelay:300,
+      backDelay:1800,
+      loop:true
+    })
+  })
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/typed.js/2.0.12/typed.min.js"></script><script>
+  window.addEventListener('load',function(){
+    // 精准选中Hello的h1标题
+    const helloH1 = document.querySelector('#page-header h1');
+    console.log("helloH1：", helloH1);
+    if(!helloH1){
+      console.log("❌ 找不到Hello的h1");
+      return;
+    }
+    if(document.querySelector('.typed-subtitle')) return;
+    const subDom = document.createElement('div');
+    subDom.className = 'typed-subtitle';
+    // 样式：和Hello保持统一，白色、字号、间距、居中
+    subDom.style.marginTop = '16px';
+    subDom.style.fontSize = '1.8rem';
+    subDom.style.color = 'rgba(255,255,255,0.92)';
+    subDom.style.textShadow = '0 1px 6px rgba(0,0,0,0.4)';
+    subDom.style.textAlign = 'center';
+    subDom.style.fontWeight = '500';
+    // ✅ 在Hello h1【后面】插入元素，就在Hello正下方
+    helloH1.after(subDom);
+
+    if(typeof Typed === "undefined"){
+      console.log("❌ Typed 没有加载成功");
+      return;
+    }
+    new Typed('.typed-subtitle',{
+      strings: ["保持热爱｜持续输入","Stay curious | Keep growing"],
+      typeSpeed:120,
+      backSpeed:60,
+      startDelay:300,
+      backDelay:1800,
+      loop:true
+    })
+    console.log("✅ Typed实例创建成功");
+  })
+</script>
+<script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
